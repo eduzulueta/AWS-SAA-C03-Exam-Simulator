@@ -1,8 +1,6 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ExamDomain } from '../types';
-import { generateStudyGuide } from '../services/geminiService';
-import Spinner from './Spinner';
 import { ChevronLeftIcon } from './Icons';
 
 interface StudyGuideProps {
@@ -11,19 +9,6 @@ interface StudyGuideProps {
 }
 
 const StudyGuide: React.FC<StudyGuideProps> = ({ domain, onBack }) => {
-  const [guideContent, setGuideContent] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const fetchGuide = async () => {
-      setIsLoading(true);
-      const content = await generateStudyGuide(domain);
-      setGuideContent(content);
-      setIsLoading(false);
-    };
-    fetchGuide();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [domain]);
 
   const renderFormattedContent = (content: string) => {
     const parseInline = (text: string) => {
@@ -115,16 +100,12 @@ const StudyGuide: React.FC<StudyGuideProps> = ({ domain, onBack }) => {
             Back to Dashboard
           </button>
           <h1 className="text-4xl font-extrabold text-aws-squid-ink mt-4">{domain.title}</h1>
-          <p className="text-lg text-aws-dark-grey">AI-Generated Study Guide</p>
+          <p className="text-lg text-aws-dark-grey">Study Guide</p>
         </header>
 
-        {isLoading ? (
-          <Spinner text="Generating your personalized study guide..." />
-        ) : (
-          <article className="prose prose-lg max-w-none">
-            {renderFormattedContent(guideContent)}
-          </article>
-        )}
+        <article className="prose prose-lg max-w-none">
+          {renderFormattedContent(domain.studyGuide)}
+        </article>
       </div>
     </div>
   );

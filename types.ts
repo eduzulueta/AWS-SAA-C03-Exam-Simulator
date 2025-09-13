@@ -5,6 +5,7 @@ export interface ExamDomain {
   weighting: number;
   description: string;
   details: string[];
+  studyGuide: string;
 }
 
 export interface Option {

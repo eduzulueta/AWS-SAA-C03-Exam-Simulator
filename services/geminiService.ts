@@ -76,23 +76,3 @@ export const generateExamQuestions = async (domain: ExamDomain, numberOfQuestion
     }];
   }
 };
-
-export const generateStudyGuide = async (domain: ExamDomain): Promise<string> => {
-    try {
-        const prompt = `
-        You are an expert AWS instructor. Provide a concise but comprehensive study guide for the AWS Certified Solutions Architect - Associate (SAA-C03) exam, focusing on **${domain.title}**.
-        Cover the key concepts under these topics: **${domain.details.join(', ')}**.
-        Explain each key concept clearly and mention the primary AWS services related to it. Use practical examples where possible.
-        Format the output as a simple string, using markdown-like syntax for headings (e.g., # Title), subheadings (e.g., ## Subtitle), bold text for key terms (**term**), and bullet points for lists (- item).
-        Do not use code blocks or JSON.
-        `;
-        const response = await ai.models.generateContent({
-            model: "gemini-2.5-flash",
-            contents: prompt
-        });
-        return response.text;
-    } catch (error) {
-        console.error("Error generating study guide:", error);
-        return "Failed to generate study guide. Please check your API key and network connection.";
-    }
-};
