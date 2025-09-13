@@ -1,0 +1,5 @@
+{
+  "name": "AWS SAA-C03 Exam Simulator",
+  "description": "An AI-powered study assistant and exam simulator to help you prepare for and pass the AWS Certified Solutions Architect - Associate (SAA-C03) certification exam. Get AI-generated practice questions and study guides based on the official exam domains.",
+  "requestFramePermissions": []
+}
